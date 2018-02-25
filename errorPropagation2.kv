@@ -1,0 +1,887 @@
+#: import FadeTransition kivy.uix.screenmanager.FadeTransition
+
+ScreenManagement:
+    transition: FadeTransition()
+    MainScreen:
+        id: Menu
+    InfoScreen:
+        id: Infor
+    OneVar:
+        id: one
+    Answer1:
+        id: ans1
+    TwoVar1:
+        id: two1
+    TwoVar2:
+        id: two2
+    Answer2:
+        id: ans2
+    ThreeVar1:
+        id: three1
+    ThreeVar2:
+        id: three2
+    Answer3:
+        id: ans3
+    FourVar1:
+        id: four1
+    FourVar2:
+        id: four2
+    FourVar3:
+        id: four3
+    Answer4:
+        id: ans4
+    FiveVar1:
+        id: five1
+    FiveVar2:
+        id: five2
+    FiveVar3:
+        id: five3
+    Answer5:
+        id: ans5
+    ErrorScreen:
+        id: error
+
+
+<Title@Label>:
+    color: 0,1,0,1
+    font_size: root.width*0.1
+    size: self.texture_size
+    center: root.width * 0.5, root.height * 0.87
+
+<Info@Label>:
+    color: 1,1,0,1
+    size_hint: 0.3,0.05
+
+<MovableLabel@Scatter>:
+    do_rotate: False
+    do_scale: False
+    do_translation_y: False
+    size_hint: None, None
+    size: myLabel.size
+    Info:
+        id: myLabel
+        text: ''
+        size: self.texture_size
+        color: 0, 0.8, 0, 1
+
+<AnswerLabel@Label>:
+    color: 0.7,0,0.8,1
+    size_hint: 0.2, 0.05
+
+<Input@TextInput>:
+    multiline: False
+    size_hint: 0.5, 0.05
+
+<button@Button>:
+    color: 0,1,0,1
+    size_hint: 0.3,0.1
+
+<MenuButton@Button>:
+    text: 'Menu'
+    on_release: app.root.current = 'Menu'
+    color: 0,0.5,1,1
+    size_hint: 0.2, 0.1
+    pos_hint: {'x': 0.78, 'y': 0.02}
+
+<ContinueButton@Button>:
+    text: 'Continue'
+    color: 0,0.5,0.5,1
+    size_hint: 0.25,0.1
+    pos_hint: {'x':0.37,'y':0.02}
+
+<BackButton@ContinueButton>:
+    text: 'Back'
+
+<ClearButton@Button>:
+    text: 'Clear'
+    color: 0.8,0.5,0,1
+    size_hint: 0.2, 0.1
+    pos_hint: {'x':0.02,'y': 0.02}
+
+<CalculateButton@Button>:
+    text: 'Calculate'
+    color: 0,0.8,1,1
+    size_hint: 0.25, 0.1
+
+
+
+<MainScreen>:
+    name: 'Menu'
+    FloatLayout:
+        Title:
+            text: 'Error Propagation'
+        Info:
+            text: 'Please enter Equation: '
+            font_size: root.width*0.06
+            pos_hint: {'x':0.35,'y':0.7}
+        Input:
+            id: equation
+            size_hint: 0.8,0.07
+            font_size: self.height * 0.6
+            pos_hint: {'x':0.1,'y':0.57}
+        button:
+            text: 'Information'
+            color: 0,1,1,1
+            pos_hint: {'x':0.35,'y':0.37}
+            on_release: app.root.current = 'info'
+        button:
+            color: 1,0.7,0,1
+            text: 'Start'
+            pos_hint: {'x':0.35,'y':0.2}
+            on_release: root.start()
+
+
+ 
+<InfoScreen>:
+    name: 'info'
+    FloatLayout:
+        Title:
+            text: 'Information'
+        Label:
+            text: 'Please enter equation with lowercase letter\n\nPlease enter + - * / ^ abs()\n\nPlease enter sin(), cos(), sec(), arcsin(), etc.\n\nPlease enter sqrt(), ln(), log(), log(x,base)\n\nPlease enter math.pi for pi, math.e for e'
+            font_size: root.width*0.045
+            color: 1,0.8,0,1
+            pos_hint: {'x':0,'y':0.1}
+        Label:
+            text: 'Equation should contains:\n\n    At least one variable\n\n   At most five variables'
+            font_size: root.width*0.045
+            color: 0,0.5,1,1
+            pos_hint: {'x':0,'y':-0.2}
+        button:
+            text: 'Menu'
+            pos_hint: {'x':0.35,'y':0.05}
+            on_release: app.root.current = 'Menu'
+
+
+<OneVar>:
+    name: 'OneVar'
+    FloatLayout:
+        Title:
+            text: 'One Variable'
+        Info:
+            id: dfdaLabel
+            text: 'Derivative df/da = '
+            pos_hint: {'x':0.05,'y':0.7}
+        Input:
+            id: dfda
+            pos_hint: {'x': 0.4, 'y': 0.7}
+        Info:
+            id: aLabel
+            text: 'a = '
+            pos_hint: {'x': 0.17, 'y': 0.6}
+        Input:
+            id: a
+            pos_hint: {'x': 0.4, 'y': 0.6}
+        Info:
+            id: EaLabel
+            text: 'Error a = '
+            pos_hint: {'x': 0.13, 'y': 0.5}
+        Input:
+            id: Ea
+            pos_hint: {'x': 0.4, 'y': 0.5}
+        ClearButton:
+            on_release: root.clear()
+        CalculateButton:
+            pos_hint: {'x': 0.37, 'y': 0.3}
+            on_release: root.calculate()
+        MenuButton:
+            on_release: root.clear()
+<Answer1>:
+    name: 'Answer1'
+    canvas:
+        Color:
+            rgba: 0, 0.8, 0, 1
+        Line:
+            width: 2
+            points: [self.width * 0.28, self.height * 0.67, self.width * 0.30, self.height * 0.65,self.width * 0.32,self.height * 0.73,self.width * 0.68,self.height * 0.73]
+    FloatLayout:
+        Title:
+            text: 'Answer'
+        Info:
+            text: 'Formula: '
+            pos_hint: {'x':0.05,'y': 0.75}
+        Info:
+            id: formula
+            text: 'df/da^2*Ea^2'
+            color: 0, 0.8, 0, 1
+            pos_hint: {'x': 0.35, 'y': 0.66}
+        Info:
+            text: 'Answer: '
+            pos_hint: {'x':0.05,'y':0.55}
+        MovableLabel:
+            id: sub
+            center: root.width * 0.5, root.height * 0.5
+        Info:
+            id: ansfLabel
+            text: 'f = '
+            pos_hint: {'x':0.05,'y':0.35}
+        AnswerLabel:
+            id: ansf
+            text: ''
+            pos_hint: {'x': 0.4, 'y': 0.35}
+        Info:
+            id: ansEfLabel
+            text: 'Ef = '
+            pos_hint: {'x':0.05,'y':0.25}
+        AnswerLabel:
+            id: ansEf
+            text: ''
+            pos_hint: {'x':0.4,'y':0.25}
+        BackButton:
+            on_release: app.root.current = 'OneVar';root.clear()
+            pos_hint: {'x':0.02,'y':0.02}
+        MenuButton:
+            on_release: root.clear()
+
+
+
+<TwoVar1>:
+    name: 'TwoVar1'
+    FloatLayout:
+        Title:
+            text: 'Two Variables'
+        Info:
+            id: dfdaLabel
+            text: 'Derivative df/da = '
+            pos_hint: {'x': 0.05,'y':0.7}
+        Input:
+            id: dfda
+            pos_hint: {'x': 0.4,'y':0.7}
+        Info:
+            id: dfdbLabel
+            text: 'Derivative df/db = '
+            pos_hint: {'x': 0.05,'y':0.6}
+        Input:
+            id: dfdb
+            pos_hint: {'x':0.4,'y':0.6}
+        Info:
+            id: aLabel
+            text: 'a = '
+            pos_hint: {'x':0.17,'y':0.5}
+        Input:
+            id: a
+            pos_hint: {'x':0.4,'y':0.5}
+        Info:
+            id: bLabel
+            text: 'b = '
+            pos_hint: {'x':0.17,'y':0.4}
+        Input:
+            id: b
+            pos_hint: {'x':0.4,'y':0.4}
+        ClearButton:
+            on_release: root.clear()
+        ContinueButton:
+            on_release: app.root.current = 'TwoVar2'
+        MenuButton
+            on_release: root.clear()
+<TwoVar2>:
+    name: 'TwoVar2'
+    FloatLayout:
+        Title:
+            text: 'Two Variables\n    (continue)'
+        Info:
+            id: EaLabel
+            text: 'Error a = '
+            pos_hint: {'x':0.13,'y':0.65}
+        Input:
+            id: Ea
+            pos_hint: {'x':0.4,'y':0.65}
+        Info:
+            id: EbLabel
+            text: 'Error b = '
+            pos_hint: {'x':0.13,'y':0.55}
+        Input:
+            id: Eb
+            pos_hint: {'x':0.4,'y':0.55}
+        BackButton:
+            on_release: app.root.current = 'TwoVar1'
+        ClearButton:
+            on_release: root.clear()
+        CalculateButton:
+            pos_hint: {'x':0.37,'y':0.35}
+            on_release: root.calculate()
+        MenuButton:
+            on_release: root.clear()
+<Answer2>:
+    name: 'Answer2'
+    canvas:
+        Color:
+            rgba: 0, 0.8, 0, 1
+        Line:
+            width: 2
+            points: [self.width * 0.18, self.height * 0.67, self.width * 0.20, self.height * 0.65, self.width * 0.22,self.height * 0.73, self.width * 0.78, self.height * 0.73]
+    FloatLayout:
+        Title:
+            text: 'Answer'
+        Info:
+            text: 'Formula: '
+            pos_hint: {'x':0.05,'y': 0.75}
+        Info:
+            id: formula
+            text: 'df/da^2*Ea^2+df/db^2*Eb^2'
+            color: 0, 0.8, 0, 1
+            pos_hint: {'x': 0.35, 'y': 0.66}
+        Info:
+            text: 'Answer: '
+            pos_hint: {'x':0.05,'y':0.55}
+        MovableLabel:
+            id: sub
+            pos: root.width * 0.2, root.height * 0.5
+        Info:
+            id: ansfLabel
+            text: 'f = '
+            pos_hint: {'x':0.05,'y':0.35}
+        AnswerLabel:
+            id: ansf
+            text: ''
+            pos_hint: {'x': 0.4, 'y': 0.35}
+        Info:
+            id: ansEfLabel
+            text: 'Ef = '
+            pos_hint: {'x':0.05,'y':0.25}
+        AnswerLabel:
+            id: ansEf
+            text: ''
+            pos_hint: {'x':0.4,'y':0.25}
+        BackButton:
+            on_release: app.root.current = 'TwoVar2';root.clear()
+            pos_hint: {'x':0.02,'y':0.02}
+        MenuButton:
+            on_release: root.clear()
+
+
+<ThreeVar1>:
+    name: 'ThreeVar1'
+    FloatLayout:
+        Title:
+            text: 'Three Variables'
+        Info:
+            id: dfdaLabel
+            text: 'Derivative df/da = '
+            pos_hint: {'x': 0.05, 'y': 0.75}
+        Input:
+            id: dfda
+            pos_hint: {'x': 0.4, 'y': 0.75}
+        Info:
+            id: dfdbLabel
+            text: 'Derivative df/db = '
+            pos_hint: {'x': 0.05, 'y': 0.65}
+        Input:
+            id: dfdb
+            pos_hint: {'x': 0.4, 'y': 0.65}
+        Info:
+            id: dfdcLabel
+            text: 'Derivative df/dc = '
+            pos_hint: {'x': 0.05, 'y': 0.55}
+        Input:
+            id: dfdc
+            pos_hint: {'x': 0.4, 'y': 0.55}
+        Info:
+            id: aLabel
+            text: 'a = '
+            pos_hint: {'x': 0.17, 'y': 0.45}
+        Input:
+            id: a
+            pos_hint: {'x': 0.4, 'y': 0.45}
+        Info:
+            id: bLabel
+            text: 'b = '
+            pos_hint: {'x':0.17,'y':0.35}
+        Input:
+            id: b
+            pos_hint: {'x':0.4,'y':0.35}
+        ClearButton:
+            on_release: root.clear()
+        ContinueButton:
+            on_release: app.root.current = 'ThreeVar2'
+        MenuButton:
+            on_release: root.clear()
+<ThreeVar2>:
+    name: 'ThreeVar2'
+    FloatLayout:
+        Title:
+            text: 'Three Variables\n    (continue)'
+        Info:
+            id: cLabel
+            text: 'c = '
+            pos_hint: {'x': 0.17, 'y': 0.7}
+        Input:
+            id: c
+            pos_hint: {'x': 0.4, 'y': 0.7}
+        Info:
+            id: EaLabel
+            text: 'Error a = '
+            pos_hint: {'x': 0.13, 'y': 0.6}
+        Input:
+            id: Ea
+            pos_hint: {'x': 0.4, 'y': 0.6}
+        Info:
+            id: EbLabel
+            text: 'Error b = '
+            pos_hint: {'x':0.13,'y':0.5}
+        Input:
+            id: Eb
+            pos_hint: {'x':0.4,'y':0.5}
+        Info:
+            id: EcLabel
+            text: 'Error c = '
+            pos_hint: {'x':0.13,'y':0.4}
+        Input:
+            id: Ec
+            pos_hint: {'x':0.4,'y':0.4}
+        BackButton:
+            on_release: app.root.current = 'ThreeVar1'
+        ClearButton:
+            on_release: root.clear()
+        CalculateButton:
+            pos_hint: {'x': 0.37, 'y': 0.25}
+            on_release: root.calculate()
+        MenuButton:
+            on_release: root.clear()
+<Answer3>:
+    name: 'Answer3'
+    canvas:
+        Color:
+            rgba: 0, 0.8, 0, 1
+        Line:
+            width: 2
+            points: [self.width * 0.05, self.height * 0.67, self.width * 0.07, self.height * 0.65, self.width * 0.09,self.height * 0.73, self.width * 0.91, self.height * 0.73]
+    FloatLayout:
+        Title:
+            text: 'Answer'
+        Info:
+            text: 'Formula: '
+            pos_hint: {'x':0.05,'y': 0.75}
+        Info:
+            id: formula
+            text: 'df/da^2*Ea^2+df/db^2*Eb^2+df/dc^2*Ec^2'
+            color: 0, 0.8, 0, 1
+            pos_hint: {'x': 0.35, 'y': 0.66}
+        Info:
+            text: 'Answer: '
+            pos_hint: {'x':0.05,'y':0.55}
+        MovableLabel:
+            id: sub
+            pos: root.width * 0.2, root.height * 0.5
+        Info:
+            id: ansfLabel
+            text: 'f = '
+            pos_hint: {'x':0.05,'y':0.35}
+        AnswerLabel:
+            id: ansf
+            text: ''
+            pos_hint: {'x': 0.4, 'y': 0.35}
+        Info:
+            id: ansEfLabel
+            text: 'Ef = '
+            pos_hint: {'x':0.05,'y':0.25}
+        AnswerLabel:
+            id: ansEf
+            text: ''
+            pos_hint: {'x':0.4,'y':0.25}
+        BackButton:
+            on_release: app.root.current = 'ThreeVar2';root.clear()
+            pos_hint: {'x':0.02,'y':0.02}
+        MenuButton:
+            on_release: root.clear()
+
+
+<FourVar1>:
+    name: 'FourVar1'
+    FloatLayout:
+        Title:
+            text: 'Four Variables'
+        Info:
+            id: dfdaLabel
+            text: 'Derivative df/da = '
+            pos_hint: {'x': 0.05, 'y': 0.75}
+        Input:
+            id: dfda
+            pos_hint: {'x': 0.4, 'y': 0.75}
+        Info:
+            id: dfdbLabel
+            text: 'Derivative df/db = '
+            pos_hint: {'x': 0.05, 'y': 0.65}
+        Input:
+            id: dfdb
+            pos_hint: {'x': 0.4, 'y': 0.65}
+        Info:
+            id: dfdcLabel
+            text: 'Derivative df/dc = '
+            pos_hint: {'x': 0.05, 'y': 0.55}
+        Input:
+            id: dfdc
+            pos_hint: {'x': 0.4, 'y': 0.55}
+        Info:
+            id: dfddLabel
+            text: 'Derivative df/dd = '
+            pos_hint: {'x': 0.05, 'y': 0.45}
+        Input:
+            id: dfdd
+            pos_hint: {'x': 0.4, 'y': 0.45}
+        Info:
+            id: aLabel
+            text: 'a = '
+            pos_hint: {'x': 0.17, 'y': 0.35}
+        Input:
+            id: a
+            pos_hint: {'x': 0.4, 'y': 0.35}
+        ClearButton:
+            on_release: root.clear()
+        ContinueButton:
+            on_release: app.root.current = 'FourVar2'
+        MenuButton:
+            on_release: root.clear()
+<FourVar2>:
+    name: 'FourVar2'
+    FloatLayout:
+        Title:
+            text: 'Four Variables\n    (continue)'
+        Info:
+            id: bLabel
+            text: 'b = '
+            pos_hint: {'x': 0.17, 'y': 0.7}
+        Input:
+            id: b
+            pos_hint: {'x': 0.4, 'y': 0.7}
+        Info:
+            id: cLabel
+            text: 'c = '
+            pos_hint: {'x': 0.17, 'y': 0.6}
+        Input:
+            id: c
+            pos_hint: {'x': 0.4, 'y': 0.6}
+        Info:
+            id: dLabel
+            text: 'd = '
+            pos_hint: {'x':0.17,'y':0.5}
+        Input:
+            id: d
+            pos_hint: {'x':0.4,'y':0.5}
+        Info:
+            id: EaLabel
+            text: 'Error a = '
+            pos_hint: {'x':0.13,'y':0.4}
+        Input:
+            id: Ea
+            pos_hint: {'x':0.4,'y':0.4}
+        BackButton:
+            on_release: app.root.current = 'FourVar1'
+        ContinueButton:
+            on_release: app.root.current = 'FourVar3'
+            pos_hint: {'x': 0.37, 'y': 0.12}
+        ClearButton:
+            on_release: root.clear()
+        MenuButton:
+            on_release: root.clear()
+<FourVar3>:
+    name: 'FourVar3'
+    FloatLayout:
+        Title:
+            text: 'Four Variables\n    (continue)'
+        Info:
+            id: EbLabel
+            text: 'Error b = '
+            pos_hint: {'x': 0.13, 'y': 0.7}
+        Input:
+            id: Eb
+            pos_hint: {'x': 0.4, 'y': 0.7}
+        Info:
+            id: EcLabel
+            text: 'Error c = '
+            pos_hint: {'x': 0.13, 'y': 0.6}
+        Input:
+            id: Ec
+            pos_hint: {'x': 0.4, 'y': 0.6}
+        Info:
+            id: EdLabel
+            text: 'Error d = '
+            pos_hint: {'x':0.13,'y':0.5}
+        Input:
+            id: Ed
+            pos_hint: {'x':0.4,'y':0.5}
+        BackButton:
+            on_release: app.root.current = 'FourVar2'
+        ClearButton:
+            on_release: root.clear()
+        CalculateButton:
+            pos_hint: {'x': 0.37, 'y': 0.3}
+            on_release: root.calculate()
+        MenuButton:
+            on_release:root.clear()
+<Answer4>:
+    name: 'Answer4'
+    canvas:
+        Color:
+            rgba: 0, 0.8, 0, 1
+        Line:
+            width: 2
+            points: [self.width * 0.05, self.height * 0.67, self.width * 0.07, self.height * 0.65, self.width * 0.09,self.height * 0.73, self.width * 0.91, self.height * 0.73]
+    FloatLayout:
+        Title:
+            text: 'Answer'
+        Info:
+            text: 'Formula: '
+            pos_hint: {'x':0.05,'y': 0.75}
+        Info:
+            id: formula
+            text: 'df/da^2*Ea^2+df/db^2*Eb^2+df/dc^2*Ec^2+df/dd^2*Ed^2'
+            font_size: root.width * 0.032
+            color: 0, 0.8, 0, 1
+            pos_hint: {'x': 0.35, 'y': 0.66}
+        Info:
+            text: 'Answer: '
+            pos_hint: {'x':0.05,'y':0.55}
+        MovableLabel:
+            id: sub
+            pos: root.width * 0.2, root.height * 0.5
+        Info:
+            id: ansfLabel
+            text: 'f = '
+            pos_hint: {'x':0.05,'y':0.35}
+        AnswerLabel:
+            id: ansf
+            text: ''
+            pos_hint: {'x': 0.4, 'y': 0.35}
+        Info:
+            id: ansEfLabel
+            text: 'Ef = '
+            pos_hint: {'x':0.05,'y':0.25}
+        AnswerLabel:
+            id: ansEf
+            text: ''
+            pos_hint: {'x':0.4,'y':0.25}
+        BackButton:
+            on_release: app.root.current = 'FourVar3';root.clear()
+            pos_hint: {'x':0.02,'y':0.02}
+        MenuButton:
+            on_release: root.clear()
+
+
+
+<FiveVar1>:
+    name: 'FiveVar1'
+    FloatLayout:
+        Title:
+            text: 'Five Variables'
+        Info:
+            id: dfdaLabel
+            text: 'Derivative df/da = '
+            pos_hint: {'x': 0.05, 'y': 0.75}
+        Input:
+            id: dfda
+            pos_hint: {'x': 0.4, 'y': 0.75}
+        Info:
+            id: dfdbLabel
+            text: 'Derivative df/db = '
+            pos_hint: {'x': 0.05, 'y': 0.65}
+        Input:
+            id: dfdb
+            pos_hint: {'x': 0.4, 'y': 0.65}
+        Info:
+            id: dfdcLabel
+            text: 'Derivative df/dc = '
+            pos_hint: {'x': 0.05, 'y': 0.55}
+        Input:
+            id: dfdc
+            pos_hint: {'x': 0.4, 'y': 0.55}
+        Info:
+            id: dfddLabel
+            text: 'Derivative df/dd = '
+            pos_hint: {'x': 0.05, 'y': 0.45}
+        Input:
+            id: dfdd
+            pos_hint: {'x': 0.4, 'y': 0.45}
+        Info:
+            id: dfdeLabel
+            text: 'Derivative df/de = '
+            pos_hint: {'x':0.05,'y':0.35}
+        Input:
+            id: dfde
+            pos_hint: {'x':0.4,'y':0.35}
+        ClearButton:
+            on_release: root.clear()
+        ContinueButton:
+            on_release: app.root.current = 'FiveVar2'
+        MenuButton:
+            on_release: root.clear()
+<FiveVar2>:
+    name: 'FiveVar2'
+    FloatLayout:
+        Title:
+            text: 'Five Variables\n    (continue)'
+        Info:
+            id: aLabel
+            text: 'a = '
+            pos_hint: {'x': 0.17, 'y': 0.7}
+        Input:
+            id: a
+            pos_hint: {'x': 0.4, 'y': 0.7}
+        Info:
+            id: bLabel
+            text: 'b = '
+            pos_hint: {'x': 0.17, 'y': 0.6}
+        Input:
+            id: b
+            pos_hint: {'x': 0.4, 'y': 0.6}
+        Info:
+            id: cLabel
+            text: 'c = '
+            pos_hint: {'x':0.17,'y':0.5}
+        Input:
+            id: c
+            pos_hint: {'x':0.4,'y':0.5}
+        Info:
+            id: dLabel
+            text: 'd = '
+            pos_hint: {'x':0.17,'y':0.4}
+        Input:
+            id: d
+            pos_hint: {'x':0.4,'y':0.4}
+        Info:
+            id: eLabel
+            text: 'e = '
+            pos_hint: {'x':0.17,'y':0.3}
+        Input:
+            id: e
+            pos_hint: {'x':0.4,'y':0.3}
+        BackButton:
+            on_release: app.root.current = 'FiveVar1'
+        ContinueButton:
+            on_release: app.root.current = 'FiveVar3'
+            pos_hint: {'x': 0.37, 'y': 0.12}
+        ClearButton:
+            on_release: root.clear()
+        MenuButton:
+            on_release: root.clear()
+<FiveVar3>:
+    name: 'FiveVar3'
+    FloatLayout:
+        Title:
+            text: 'Five Variables\n    (continue)'
+        Info:
+            id: EaLabel
+            text: 'Error a = '
+            pos_hint: {'x': 0.13, 'y': 0.7}
+        Input:
+            id: Ea
+            pos_hint: {'x': 0.4, 'y': 0.7}
+        Info:
+            id: EbLabel
+            text: 'Error b = '
+            pos_hint: {'x': 0.13, 'y': 0.6}
+        Input:
+            id: Eb
+            pos_hint: {'x': 0.4, 'y': 0.6}
+        Info:
+            id: EcLabel
+            text: 'Error c = '
+            pos_hint: {'x':0.13,'y':0.5}
+        Input:
+            id: Ec
+            pos_hint: {'x':0.4,'y':0.5}
+        Info:
+            id: EdLabel
+            text: 'Error d = '
+            pos_hint: {'x':0.13,'y':0.4}
+        Input:
+            id: Ed
+            pos_hint: {'x':0.4,'y':0.4}
+        Info:
+            id: EeLabel
+            text: 'Error e = '
+            pos_hint: {'x':0.13,'y':0.3}
+        Input:
+            id: Ee
+            pos_hint: {'x':0.4,'y':0.3}
+        BackButton:
+            on_release: app.root.current = 'FiveVar2'
+        ClearButton:
+            on_release: root.clear()
+        CalculateButton:
+            pos_hint: {'x': 0.37, 'y': 0.15}
+            on_release: root.calculate()
+        MenuButton:
+            on_release: root.clear()
+<Answer5>:
+    name: 'Answer5'
+    canvas:
+        Color:
+            rgba: 0, 0.8, 0, 1
+        Line:
+            width: 2
+            points: [self.width * 0.02, self.height * 0.67, self.width * 0.04, self.height * 0.65, self.width * 0.06,self.height * 0.73, self.width * 0.94, self.height * 0.73]
+    FloatLayout:
+        Title:
+            text: 'Answer'
+        Info:
+            text: 'Formula: '
+            pos_hint: {'x':0.05,'y': 0.75}
+        Info:
+            id: formula
+            text: 'df/da^2*Ea^2+df/db^2*Eb^2+df/dc^2*Ec^2+df/dd^2*Ed^2+df/de^2*Ee^2'
+            font_size: root.width*0.028
+            color: 0, 0.8, 0, 1
+            pos_hint: {'x': 0.35, 'y': 0.66}
+        Info:
+            text: 'Answer: '
+            pos_hint: {'x':0.05,'y':0.55}
+        MovableLabel:
+            id: sub
+            pos: root.width * 0.2, root.height * 0.5
+        Info:
+            id: ansfLabel
+            text: 'f = '
+            pos_hint: {'x':0.05,'y':0.35}
+        AnswerLabel:
+            id: ansf
+            text: ''
+            pos_hint: {'x': 0.4, 'y': 0.35}
+        Info:
+            id: ansEfLabel
+            text: 'Ef = '
+            pos_hint: {'x':0.05,'y':0.25}
+        AnswerLabel:
+            id: ansEf
+            text: ''
+            pos_hint: {'x':0.4,'y':0.25}
+        BackButton:
+            on_release: app.root.current = 'FourVar3';root.clear()
+            pos_hint: {'x':0.02,'y':0.02}
+        MenuButton:
+            on_release: root.clear()
+
+<ErrorScreen>:
+    name: 'Error'
+    canvas:
+        Color:
+            rgba: 0, 0.8, 0, 1
+        Line:
+            width: 2
+            points: [self.width * 0.05, self.height * 0.47, self.width * 0.07, self.height * 0.45, self.width * 0.09,self.height * 0.53, self.width * 0.91, self.height * 0.53]
+    FloatLayout:
+        Title:
+            text: 'Error'
+            color: 1,0.5,0,1
+        Info:
+            text: 'df/da^2*Ea^2+df/db^2*Eb^2+df/dc^2*Ec^2...'
+            color: 0, 0.8, 0, 1
+            pos_hint: {'x': 0.35, 'y': 0.46}
+        Label:
+            font_size: self.width * 0.3
+            text: 'Please enter valid input'
+            color: 0.7, 0, 0.8, 1
+            size_hint: 0.2, 0.1
+            pos_hint: {'x':0.4,'y':0.7}
+        Info:
+            text: 'General formula:'
+            pos_hint: {'x':0.04,'y':0.6}
+
+        Info:
+            text: 'For more information:'
+            pos_hint: {'x':0.2,'y':0.3}
+        button:
+            text: 'Information'
+            color: 0, 1, 1, 1
+            pos_hint: {'x': 0.35, 'y': 0.1}
+            on_release: app.root.current = 'info'
